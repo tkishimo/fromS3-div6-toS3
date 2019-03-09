@@ -32,9 +32,9 @@ def lambda_handler(event, context):
                 for c006_uniq_value in df.c006.unique():
                     csv_buffer = StringIO()
                     df[df.c006 == c006_uniq_value].to_csv(csv_buffer,index=False,sep=",",encoding='shift_jis')
-                    out_subdir = 'div0/'
+                    out_subdir = 'YOURDIR/'
                     out_filename = key.split('.')[0] + '_' + c006_uniq_value + '_' + str(idx) + '.csv'
-                    s3_resource.Object('input2td',out_subdir + out_filename).put(Body=csv_buffer.getvalue().encode('shift_jis'))
+                    s3_resource.Object(YOURBASCKET,out_subdir + out_filename).put(Body=csv_buffer.getvalue().encode('shift_jis'))
                 idx+=1
         else:
             skip
